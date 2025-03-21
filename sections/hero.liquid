@@ -1,0 +1,82 @@
+<div class="relative bg-[#f5f5f5] overflow-hidden">
+  <div class="page-width flex flex-col md:flex-row items-center py-12 md:py-16">
+    <div class="w-full md:w-1/2 pr-0 md:pr-8 mb-8 md:mb-0">
+      <h1 class="text-4xl md:text-5xl font-bold mb-4">{{ section.settings.heading }}</h1>
+      <div class="text-base md:text-lg mb-6">{{ section.settings.text }}</div>
+      <a 
+        href="{{ section.settings.button_link }}" 
+        class="button{% if section.settings.button_style_secondary %} button--secondary{% else %} button--primary{% endif %}"
+      >
+        {{ section.settings.button_label | escape }}
+      </a>
+    </div>
+    <div class="w-full md:w-1/2">
+      {%- if section.settings.image != blank -%}
+        <img 
+          src="{{ section.settings.image | image_url: width: 800 }}"
+          alt="{{ section.settings.image.alt | escape }}"
+          loading="lazy"
+          width="{{ section.settings.image.width }}"
+          height="{{ section.settings.image.height }}"
+          class="w-full h-auto rounded-lg"
+        >
+      {%- else -%}
+        {{ 'image' | placeholder_svg_tag: 'placeholder-svg w-full h-auto rounded-lg' }}
+      {%- endif -%}
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Life Improvements Require Home Improvements",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "default": "<p>Our wide selection of furniture pieces are designed to bring both style and comfort to any space.</p>",
+      "label": "Text"
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "default": "Shop now",
+      "label": "Button label"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link"
+    },
+    {
+      "type": "checkbox",
+      "id": "button_style_secondary",
+      "default": false,
+      "label": "Use secondary button style"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Image"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Hero",
+      "settings": {
+        "heading": "Life Improvements Require Home Improvements",
+        "text": "<p>Our wide selection of furniture pieces are designed to bring both style and comfort to any space.</p>",
+        "button_label": "Shop now"
+      }
+    }
+  ]
+}
+{% endschema %}
